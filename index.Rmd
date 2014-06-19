@@ -1,0 +1,21 @@
+---
+title: "R Short Course"
+author: "Andrew Barr"
+output: 
+  html_document:
+    theme: readable
+    highlight: pygments
+---
+
+Welcome to this R short course.  
+
+We will cover these basic topics
+
+* [Getting Data In and Out](input_output.html)
+* [Basic Graphing](graph/graph_README.html)
+* [Manipulating Data](dataMunging/munging_README.html)
+* [Statistics](stats/stats_README.html)
+  * [Regression](stats/regression.html)
+  * [ANOVA](stats/ANOVA.html)
+* [Data Sets](datasets/datasets_README.html)
+* [Tools Of The Trade](tools/tools_README.html)
