@@ -89,10 +89,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><code>sep</code> = the character that separates columns in your text file. The default is <code>&quot; &quot;</code>, which kind of sucks because most of our files will be separated by either <code>\t</code> or <code>,</code>.</li>
 <li><code>header</code> = Whether or not there is a header row in your text file. Defaults to <code>FALSE</code>, but usually we need it to be <code>TRUE</code>.</li>
 </ul>
-</div>
-<div id="challenge" class="section level2">
-<h2>Challenge</h2>
+<div id="challenge" class="section level3">
+<h3>Challenge</h3>
 <p>Read in the file called femur_lengths.txt. Save to an object called <code>femora</code>.</p>
+</div>
 </div>
 <div id="getting-data-out" class="section level2">
 <h2>Getting Data Out</h2>
@@ -104,9 +104,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><code>sep</code> = Same as for <code>read.table()</code></li>
 <li><code>row.names</code> = Do you want row names? Defaults to <code>TRUE</code>, but usually you will set to <code>FALSE</code>/</li>
 </ul>
-</div>
-<div id="example" class="section level1">
-<h1>Example</h1>
+<div id="example" class="section level3">
+<h3>Example</h3>
 <p>First, I add a new column to the femur length dataset and then write it out to the Desktop.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RCurl)</code></pre>
 <pre><code>## Loading required package: bitops</code></pre>
@@ -114,6 +113,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 femora &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">text=</span>theFile, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">femora$family &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;Bovidae&quot;</span>, <span class="dv">10</span>), <span class="kw">rep</span>(<span class="st">&quot;Muridae&quot;</span>, <span class="dv">12</span>), <span class="kw">rep</span>(<span class="st">&quot;Hominidae&quot;</span>, <span class="dv">18</span>))
 <span class="kw">write.table</span>(femora, <span class="st">&quot;~/Desktop/femur_lengths_family.txt&quot;</span>, <span class="dt">quote=</span><span class="ot">FALSE</span>, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">row.names=</span><span class="ot">FALSE</span>)</code></pre>
+</div>
 </div>
 
 

@@ -13,4 +13,3 @@ We will cover these basic topics
   * [Regression](stats/regression.html)
   * [ANOVA](stats/ANOVA.html)
 * [Data Sets](datasets/datasets_README.html)
-* [Tools Of The Trade](tools/tools_README.html)
