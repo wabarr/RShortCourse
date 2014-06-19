@@ -1,12 +1,6 @@
 ---
 title: "Getting data in and out"
-output: 
-  html_document:
-    theme: readable
-    highlight: pygments
-    css: style.css
-    includes:
-      in_header: navbar.html
+
 ---
 ## Getting Data In
 
