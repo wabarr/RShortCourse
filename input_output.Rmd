@@ -2,7 +2,9 @@
 title: "Getting data in and out"
 
 ---
-## Getting Data In
+## Input
+
+Getting data into R can be somewhat frustrating for new users.  This is mainly because we humans (the author especially) tend to be somewhat sloppy when collecting data in a spreadsheet.  R has rigid expectations.  It expects each column of a text file (usually exported from an Excel sheet)
 
 The primary function for reading data into R is the `read.table()` function.  This function reads plain text files (.txt or .csv) and creates a dataframe in R from the resulting data.  There are a variety of arguments to `read.data()`, the most important of which are:
 
@@ -10,11 +12,11 @@ The primary function for reading data into R is the `read.table()` function.  Th
 *  `sep` = the character that separates columns in your text file.  The default is `" "`, which kind of sucks because most of our files will be separated by either `\t` or `,`.
 *  `header` = Whether or not there is a header row in your text file.  Defaults to `FALSE`, but usually we need it to be `TRUE`.
 
-### Challenge
+#### <span class="octicon octicon-puzzle"></span> Challenge
 
 Read in the file called femur_lengths.txt. Save to an object called `femora`.
 
-## Getting Data Out
+## Output
 
 Usually, I would recommend not writing out modified data frames to text files.  Far better to have a single input file, and to do all necessary manipulations in your saved R script file. But, if you have huge datasets or need to use another statistical program, it is sometimes necesary to save a dataframe out as a text file.  You can do this with `write.table()`
 
@@ -24,7 +26,7 @@ Usually, I would recommend not writing out modified data frames to text files.  
 *  `sep` = Same as for `read.table()`
 *  `row.names` = Do you want row names?  Defaults to `TRUE`, but usually you will set to `FALSE`/
 
-### Challenge
+#### <span class="octicon octicon-puzzle"></span> Challenge
 
 Add a new column of log transformed lengths to the femur length dataset and then write out the new file to the Desktop.
 
