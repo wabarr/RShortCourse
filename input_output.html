@@ -46,6 +46,10 @@
       <li><a href='datasets.html'>Datasets</a></li>
     </div>
     
+    <div class=navbar-element>
+      <li><a href='http://wabarr.com/about'>About the Author</a></li>
+    </div>
+    
   </ul>
 </div>
 
@@ -74,7 +78,7 @@
 
 <div id="input" class="section level2">
 <h2>Input</h2>
-<p>Getting data into R can be somewhat frustrating for new users. This is mainly because we humans (the author especially) tend to be somewhat sloppy when collecting data in a spreadsheet. R has rigid expectations. It expects each column of a text file (usually exported from an Excel sheet)</p>
+<p>Getting data into R can be somewhat frustrating for new users. This is mainly because we humans (the author especially) tend to be somewhat sloppy when collecting data in a spreadsheet. R has rigid expectations. It expects each column of a text file (usually exported from an Excel sheet) to have a single type of data (text, numeric, factor), with the exception of an optional header.</p>
 <p>The primary function for reading data into R is the <code>read.table()</code> function. This function reads plain text files (.txt or .csv) and creates a dataframe in R from the resulting data. There are a variety of arguments to <code>read.data()</code>, the most important of which are:</p>
 <ul>
 <li><code>file</code> = The full path to the file on your computer as a text string. (Use the forward slash <code>/</code>, even on Windows.) A more convient alternative is to use <code>file.choose()</code> to select the file using the operating system file chooser.</li>

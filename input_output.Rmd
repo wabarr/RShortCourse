@@ -4,7 +4,7 @@ title: "Getting data in and out"
 ---
 ## Input
 
-Getting data into R can be somewhat frustrating for new users.  This is mainly because we humans (the author especially) tend to be somewhat sloppy when collecting data in a spreadsheet.  R has rigid expectations.  It expects each column of a text file (usually exported from an Excel sheet)
+Getting data into R can be somewhat frustrating for new users.  This is mainly because we humans (the author especially) tend to be somewhat sloppy when collecting data in a spreadsheet.  R has rigid expectations.  It expects each column of a text file (usually exported from an Excel sheet) to have a single type of data (text, numeric, factor), with the exception of an optional header.  
 
 The primary function for reading data into R is the `read.table()` function.  This function reads plain text files (.txt or .csv) and creates a dataframe in R from the resulting data.  There are a variety of arguments to `read.data()`, the most important of which are:
 
