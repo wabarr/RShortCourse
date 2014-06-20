@@ -6,7 +6,7 @@ We will be relying heavily on a piece of software called Rstudio. There are a [t
 
 * **interpreter** - This is R.  Type in a command and it gets executed.  You should use this as your sandbox -- an experimental place to figure out WHAT you want to do, but not necessarily to actually DO what you want to do. 
 * **script** - This is where you DO what you want to do.  This is just a regular plain text file with the .R file extension. Scripting is THE REASON to use R.  It provides an exact record of what you did, so that you can recreate each step of the analysis exactly.  
-    *  **Remember** - Never, Ever do something important only in the interpreter: do it in the script, save it, and then send it to the interpreter!
+    * <span class="octicon octicon-alert"></span> Never do something important only in the interpreter: do it in the script, save it, and then send it to the interpreter! <span class="octicon octicon-alert"></span>
 * **files/plots/help** - this is where you can see the files in the current project, and where plots appear, and where the help pops up when you type `?plot`.
 * **environment/history** - This shows the current variables in memory, and a history of commands executed in the interpreter.  Don't mistake the history for something like a record of your analysis...this will include every command executed, including the mistakes. 
 
