@@ -12,9 +12,12 @@ The primary function for reading data into R is the `read.table()` function.  Th
 *  `sep` = the character that separates columns in your text file.  The default is `" "`, which kind of sucks because most of our files will be separated by either `\t` or `,`.
 *  `header` = Whether or not there is a header row in your text file.  Defaults to `FALSE`, but usually we need it to be `TRUE`.
 
-#### <span class="octicon octicon-puzzle"></span> Challenge
 
-Read in the file called femur_lengths.txt. Save to an object called `femora`.
+#### <span class="mega-octicon octicon-puzzle"></span> Challenge <span class="mega-octicon octicon-puzzle">
+
+Read in the file called [femur_lengths.txt](https://dl.dropboxusercontent.com/u/1648032/datasets_for_R_course/femur_lengths.txt). Save to an object called `femora`.
+
+
 
 ## Output
 
@@ -26,7 +29,8 @@ Usually, I would recommend not writing out modified data frames to text files.  
 *  `sep` = Same as for `read.table()`
 *  `row.names` = Do you want row names?  Defaults to `TRUE`, but usually you will set to `FALSE`/
 
-#### <span class="octicon octicon-puzzle"></span> Challenge
+
+#### <span class="mega-octicon octicon-puzzle"></span> Challenge <span class="mega-octicon octicon-puzzle">
 
 Add a new column of log transformed lengths to the femur length dataset and then write out the new file to the Desktop.
 
