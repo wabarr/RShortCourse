@@ -7,9 +7,9 @@ Welcome to this R short course.
 We will cover these basic topics
 
 * [Getting Data In and Out](input_output.html)
-* [Basic Graphing](graph/graph_README.html)
-* [Manipulating Data](dataMunging/munging_README.html)
-* [Statistics](stats/stats_README.html)
+* [Basic Graphing](basic_graphing.html)
+* [Manipulating Data](dataMunging.html)
+* [Statistics](stats/stats.html)
   * [Regression](stats/regression.html)
   * [ANOVA](stats/ANOVA.html)
-* [Data Sets](datasets/datasets_README.html)
+* [Data Sets](datasets.html)

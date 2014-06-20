@@ -16,7 +16,7 @@ Read in the file called femur_lengths.txt. Save to an object called `femora`.
 
 ## Getting Data Out
 
-Usually, I would recommend not writing out modified data frames to text files.  Far better to have a single input file, and to do all necessary manipulations in your saved R script file. But, if you have huge datasets or need to use another statistical prigem, it is sometimes necesary to save a dataframe out as a text file.  You can do this with `write.table()`
+Usually, I would recommend not writing out modified data frames to text files.  Far better to have a single input file, and to do all necessary manipulations in your saved R script file. But, if you have huge datasets or need to use another statistical program, it is sometimes necesary to save a dataframe out as a text file.  You can do this with `write.table()`
 
 *  `x` = The name of the data frame to be saved. 
 *  `file` = Path to the output file.  You can't use `file.choose()` though.
@@ -24,17 +24,17 @@ Usually, I would recommend not writing out modified data frames to text files.  
 *  `sep` = Same as for `read.table()`
 *  `row.names` = Do you want row names?  Defaults to `TRUE`, but usually you will set to `FALSE`/
 
-### Example
+### Challenge
 
-First, I add a new column to the femur length dataset and then write it out to the Desktop.
+Add a new column of log transformed lengths to the femur length dataset and then write out the new file to the Desktop.
 
-```{r}
+```{r include=FALSE}
 library(RCurl)
 theFile <- getURL("https://dl.dropboxusercontent.com/u/1648032/datasets_for_R_course/femur_lengths.txt")
 femora <- read.table(text=theFile, header=TRUE, sep = "\t")
 ```
 
-```{r}
+```{r include=FALSE}
 femora$family <- c(rep("Bovidae", 10), rep("Muridae", 12), rep("Hominidae", 18))
 write.table(femora, "~/Desktop/femur_lengths_family.txt", quote=FALSE, sep="\t", row.names=FALSE)
 ```
