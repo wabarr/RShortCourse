@@ -1,7 +1,0 @@
-html_document:
-    theme: spacelab
-    highlight: pygments
-    css: style.css
-    self_contained: false
-    includes:
-      in_header: navbar.html
