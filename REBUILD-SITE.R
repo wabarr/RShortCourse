@@ -1,0 +1,1 @@
+lapply(list.files(pattern = "*.Rmd",recursive = TRUE), rmarkdown::render)
