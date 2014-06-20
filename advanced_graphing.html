@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Advanced ggplot2</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/spacelab.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="octicons/octicons.css">
+
+<div id=nav-container>
+  <ul id=navbar>
+    <div class=navbar-element>
+      <li><a href='index.html'><span class="octicon octicon-home"></span> </a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='tools.html'>Tools of the Trade</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='input_output.html'>Getting Data In and Out</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='basic_graphing.html'>Basic Graphing</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='advanced_graphing.html'>Advanced Graphing</a></li>
+    </div>
+        
+    <div class=navbar-element>
+      <li><a href='stats.html'>Statistics</a></li>
+    </div>
+        
+    <div class=navbar-element>
+      <li><a href='datasets.html'>Datasets</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='http://wabarr.com/about'>About the Author</a></li>
+    </div>
+  </ul>
+</div>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+
+<div id="header">
+<h1 class="title">Advanced ggplot2</h1>
+</div>
+
+
+<p>To briefly summarize: in <code>ggplot2</code> a plot is thought of as having several parts which are either background elements or individual layer elements.<br />* background elements (shared by all layers in a plot) * coordinate system * scales - mapping of data values into plot values (either coordinates or aesthetic properties like color values) * facets (optional) - specification of subplots within a plot, mapped to a column in the dataframe * layer * data - a dataframe * mapping - linking of data locums to aesthetic elements (x,y,color,shape,size,etc) * stat - a statistical transformation of rows in the dataframe (often this is the identity transformation) * geom - a graphical representation of the stat</p>
+<div id="the-basic-workflow" class="section level2">
+<h2>The Basic workflow</h2>
+<ul>
+<li>Get your dataframe in the correct shape</li>
+<li>use the <code>ggplot()</code> function to set up your plotting window (mapping data to aesthetics using the <code>aes()</code> function)</li>
+<li><code>aes()</code> to map columns to aesthetics. Things you can set include
+<ul>
+<li>color</li>
+<li>shape</li>
+<li>size</li>
+<li>alpha (i.e. transparency)</li>
+</ul></li>
+<li>Anything not getting mapped to a column (e.g. color=“blue”) don’t use <code>aes()</code></li>
+<li>Use <code>facet_grid()</code> or <code>facet_wrap()</code> to add faceting formula.</li>
+<li>Add layers to the plot, usually using one of the <code>geom_xxx()</code> functions. For a full list of the possibilities try <code>??geom</code> The most common are
+<ul>
+<li><code>geom_point()</code></li>
+<li><code>geom_histogram()</code></li>
+<li><code>geom_bar()</code></li>
+<li><code>geom_path()</code></li>
+<li><code>geom_rect()</code></li>
+<li><code>geom_polygon()</code></li>
+<li><code>geom_abline()</code></li>
+<li><code>geom_hline()</code> and <code>geom_vline()</code></li>
+</ul></li>
+<li><code>annotate()</code> your plot</li>
+<li>Style the plot and tweak axes etc. Note you can change pretty much EVERYTHING in ggplot.
+<ul>
+<li>Themes are a useful shortcut</li>
+<li>Themes let you customize the overall appearance of graphs, two of the most useful are below. Note that the number argument indicates the base font size.</li>
+<li><code>theme_classic(20)</code></li>
+<li><code>theme_bw(20)</code></li>
+<li>helper functions for tweaks</li>
+<li><code>labs(x=&quot;The X axis label&quot;, title=&quot;my nice little graph&quot;)</code></li>
+<li><code>guides()</code> to tweak legend</li>
+<li><code>scale_x_continuous(limits=c(0,10))</code> to customize x scale</li>
+<li><code>scale_fill_xxx()</code> and <code>scale_color_xxx()</code> for customizing color choices</li>
+</ul></li>
+<li>Export the plot in a useful format using <code>ggsave()</code></li>
+<li>Submit for publication.</li>
+</ul>
+</div>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<p>Lets create the below plot of log(body mass) boxplots for different activity patterns. We need all the variables in a single dataframe, with X and Y in separate columns, and any variables to be used for aesthetics in parallel columns. The <code>shortPantheria</code> dataframe is already in a good shape for this.</p>
+</div>
+<div id="challenge-3" class="section level2">
+<h2>¡¡¡ Challenge #3!!!</h2>
+<div id="recreate-this-plot.-hint.one-of-the-pantheria-dataframes-is-already-in-the-right-shape-to-make-this-plot-easily-with-the-help-of-facet_wrap." class="section level3">
+<h3>Recreate this plot. Hint….one of the pantheria dataframes is already in the right shape to make this plot easily, with the help of <code>facet_wrap()</code>.</h3>
+<p>[histograms][1]</p>
+</div>
+</div>
+<div id="challenge-4" class="section level2">
+<h2>¡¡¡ Challenge #4!!!</h2>
+<div id="without-using-qplot-plot-the-relationship-between-homerange-size-and-body-mass-with-different-colors-for-activity-pattern-with-a-regression-line-with-the-equation-for-this-line-as-text-on-the-plot-with-a-title-and-with-a-legend.-the-plot-should-look-like-this." class="section level3">
+<h3>Without using <code>qplot()</code>, plot the relationship between homerange size and body mass, with different colors for activity pattern, with a regression line, with the equation for this line as text on the plot, with a title, and with a legend. The plot should look like this.</h3>
+<p>[scatter][2]</p>
+</div>
+</div>
+<div id="line-graphs-time-series-data" class="section level2">
+<h2>Line Graphs / Time Series Data</h2>
+<p>the <code>geom_path()</code> function is really useful for plotting line graphs. Let us simulate data of monkey weights through time. We will simulate weight data for three different monkeys, that were trapped 100 times and weighed each time. Then we can use paths to plot their weight through time.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">set.seed</span>(<span class="dv">501</span>)
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+        <span class="dt">trappingEvent=</span><span class="kw">rep</span>(<span class="dv">1</span>:<span class="dv">100</span>,<span class="dv">3</span>),
+        <span class="dt">monkey=</span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;CindyLou&quot;</span>,<span class="st">&quot;Tommy&quot;</span>,<span class="st">&quot;Antonio&quot;</span>),<span class="dt">each=</span><span class="dv">100</span>),
+        <span class="dt">weight =</span> <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">100</span>,<span class="dv">10</span>,.<span class="dv">3</span>),<span class="kw">rnorm</span>(<span class="dv">100</span>,<span class="dv">9</span>)*<span class="kw">seq</span>(<span class="dt">from=</span>.<span class="dv">505</span>,<span class="dt">to=</span><span class="dv">1</span>,<span class="dt">by=</span>.<span class="dv">005</span>),<span class="kw">rnorm</span>(<span class="dv">100</span>,<span class="dv">15</span>))
+        )
+                 
+monkeyweights &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>df,<span class="kw">aes</span>(<span class="dt">x=</span>trappingEvent,<span class="dt">y=</span>weight,<span class="dt">color=</span>monkey)) +<span class="st"> </span><span class="kw">geom_path</span>() +<span class="st"> </span><span class="kw">theme_bw</span>(<span class="dv">20</span>) +<span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Monkey weights through time&quot;</span>, <span class="dt">x=</span><span class="st">&quot;weight (kg)&quot;</span>)
+monkeyweights</code></pre>
+<p><img src="advanced_graphing_files/figure-html/monkeyweights.png" title="plot of chunk monkeyweights" alt="plot of chunk monkeyweights" width="1152" /></p>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with --self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

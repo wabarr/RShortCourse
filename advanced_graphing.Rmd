@@ -1,0 +1,91 @@
+---
+title: "Advanced ggplot2"
+---
+
+To briefly summarize: in `ggplot2` a plot is thought of as having several parts which are either background elements or individual layer elements.  
+* background elements (shared by all layers in a plot)
+  * coordinate system
+  * scales - mapping of data values into plot values (either coordinates or aesthetic properties like color values)
+  * facets (optional) - specification of subplots within a plot, mapped to a column in the dataframe
+* layer
+  * data - a dataframe
+  * mapping - linking of data locums to aesthetic elements (x,y,color,shape,size,etc)
+  * stat - a statistical transformation of rows in the dataframe (often this is the identity transformation)
+  * geom - a graphical representation of the stat
+  
+## The Basic workflow
+
+*  Get your dataframe in the correct shape
+*   use the `ggplot()` function to set up your plotting window (mapping data to aesthetics using the `aes()` function)
+  * `aes()` to map columns to aesthetics. Things you can set include
+      * color
+      * shape
+      * size 
+      * alpha (i.e. transparency)
+  *   Anything not getting mapped to a column (e.g. color="blue") don't use `aes()`
+*   Use `facet_grid()` or `facet_wrap()` to add faceting formula. 
+*   Add layers to the plot, usually using one of the `geom_xxx()` functions.  For a full list of the possibilities try `??geom` The most common are
+    *  `geom_point()`
+    *  `geom_histogram()`
+    *  `geom_bar()`
+    *  `geom_path()`
+    *  `geom_rect()`
+    *  `geom_polygon()`
+    *  `geom_abline()`
+    *  `geom_hline()` and `geom_vline()`
+*   `annotate()` your plot
+*   Style the plot and tweak axes etc. Note you can change pretty much EVERYTHING in ggplot.  
+    * Themes are a useful shortcut
+    * Themes let you customize the overall appearance of graphs, two of the most useful are below.  Note that the number argument indicates the base font size. 
+      * `theme_classic(20)`
+      * `theme_bw(20)`
+    * helper functions for tweaks
+      * `labs(x="The X axis label", title="my nice little graph")`
+      * `guides()` to tweak legend
+      * `scale_x_continuous(limits=c(0,10))` to customize x scale
+      * `scale_fill_xxx()` and `scale_color_xxx()` for customizing color choices
+      
+*   Export the plot in a useful format using `ggsave()`
+*   Submit for publication.
+
+
+## Example
+
+Lets create the below plot of log(body mass) boxplots for different activity patterns. We need all the variables in a single dataframe, with X and Y in separate columns, and any variables to be used for aesthetics in parallel columns. The `shortPantheria` dataframe is already in a good shape for this. 
+
+
+```{r echo=FALSE, fig.width=10, fig.height=10}
+# myPlot <- ggplot(data=shortPantheria, mapping=aes(y=log(mass),x=activity,fill=activity)) +
+#       theme_bw(20) + 
+#       labs(title="Mamm. Body Mass By Activity Pattern",x="Activity Pattern",fill="Act. Pattern") +
+#       geom_boxplot(size=2,alpha=.7) + #why aren't these wrapped in aes() 
+#       guides(fill = guide_legend(keywidth = 3, keyheight = 3))
+# myPlot
+
+```
+
+## &iexcl;&iexcl;&iexcl; Challenge #3!!!
+### Recreate this plot. Hint....one of the pantheria dataframes is already in the right shape to make this plot easily, with the help of `facet_wrap()`.
+![histograms][1]
+
+## &iexcl;&iexcl;&iexcl; Challenge #4!!!
+### Without using `qplot()`, plot the relationship between homerange size and body mass, with different colors for activity pattern, with a regression line, with the equation for this line as text on the plot, with a title, and with a legend. The plot should look like this.
+![scatter][2]
+
+## Line Graphs / Time Series Data
+
+the `geom_path()` function is really useful for plotting line graphs.  Let us simulate data of monkey weights through time.  We will simulate weight data for three different monkeys, that were trapped 100 times and weighed each time. Then we can use paths to plot their weight through time.
+
+```{r monkeyweights, fig.width=12}
+library(ggplot2)
+set.seed(501)
+df <- data.frame(
+        trappingEvent=rep(1:100,3),
+        monkey=rep(c("CindyLou","Tommy","Antonio"),each=100),
+        weight = c(rnorm(100,10,.3),rnorm(100,9)*seq(from=.505,to=1,by=.005),rnorm(100,15))
+        )
+                 
+monkeyweights <- ggplot(data=df,aes(x=trappingEvent,y=weight,color=monkey)) + geom_path() + theme_bw(20) + labs(title="Monkey weights through time", x="weight (kg)")
+monkeyweights
+```
+
