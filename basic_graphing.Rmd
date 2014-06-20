@@ -4,8 +4,7 @@ title: "Basic Graphing"
 
 ### <span class="mega-octicon octicon-alert"></span> I am opinionated when it comes to graphics in R. <span class="mega-octicon octicon-alert"></span>
 
-I prefer to not to use the standard graphics facilities in R, which are rather kludgy and take lots of tweaking to make the graphs look great.  Instead, I prefer to use the `ggplot2` package.  You need to install this package using the standard package manager: Tools > Package Manager.
+I prefer to not to use the standard graphics facilities in R, which are rather kludgy and take lots of tweaking to make the graphs look great.  Instead, I prefer to use the `ggplot2` package.  You need to install this package using the standard package manager: Tools > Package Manager. Then you will load the packge using the command `library(ggplot2)`.
 
-`ggplot2` provides a convenient function called `qplot()` for making quick plots that don't require a lot of customization.  If you need full control over all the gritty details, then you need to learn more about [advanced ggplotting](advanced_graphing.html)
-
+`ggplot2` provides a convenient function called `qplot()` for making quick plots that don't require a lot of customization. If you need full control over all the gritty details, then you need to learn more about [advanced ggplotting](advanced_graphing.html).  Lets take a crack at `qplot()` first. 
 
