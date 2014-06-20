@@ -5,3 +5,4 @@ html_document:
     self_contained: false
     includes:
       in_header: navbar.html
+    lib_dir: libs
