@@ -8,7 +8,7 @@ We will cover these basic topics
 
 * [Getting Data In and Out](input_output.html)
 * [Basic Graphing](basic_graphing.html)
-* [Manipulating Data](dataMunging.html)
+* [Reshaping Data](reshaping_data.html)
 * [Statistics](stats.html)
   * [Regression](regression.html)
   * [ANOVA](ANOVA.html)

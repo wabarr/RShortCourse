@@ -1,0 +1,109 @@
+---
+title: 'Reshaping Data'
+---
+
+There are several ways to present a given data set. The most familiar way to anybody that has ever used a spreadsheet is called the "short form". Let's take for example 3 different animals that might be found in a barnyard, and 3 different variables that might be measured for each. 
+
+```{r}
+barnyard_shortform <- data.frame(
+    animal=c("chicken","cow","pig"),
+    nToes=c("4","2","2"),
+    size=c("small","big","medium"),
+    smell=c("so-so","objectionable","more_objectionable")
+  )
+barnyard_shortform
+```
+
+This isn't only way, though.  A simpler way to encode the same data is the the "long form", where each row corresponds to a single observation of a single variable. 
+
+
+```{r }
+barnyard_longform <- data.frame(
+    animal=rep(c("cow","pig","chicken"),c(3,3,3)),
+    variable=rep(c("size","nToes","smell"),3),
+    value = c("big","2","objectionable","medium","2","more_objectionable","small","4","so-so")
+    
+  )
+barnyard_longform
+```
+Notice that in the long-form data-frame, each row is a single observation of a single variable. The column names are kind of generic, because all the important data for each observation is contained in the row.  **The row is all important in long form data!**
+
+
+It should be obvious what I mean by the "shape" of the data-frame at this point. The short form data frame is short and wide (3 rows,4 columns), while the long form data frame is long and skinny (9 rows, but only 3 columns). 
+
+**Importantly, one row does not correspond to a single observation in the short form. There are many different observations in the same column. By contrast, the columns take on great significance in long form data** The data are exactly the same, but the shape (and the column headings) are different. 
+
+But the long form is stupid.  Why would I ever use it??
+
+### Two reasons that I can think of:
+
+1.  If you need to do aggregation and complex reshaping of data, the easiest way is often THROUGH the long form. In other words, once you put a dataframe in long form, it can then be transformed into any other shape.
+2. Several very useful tasks in ggplot operate on long-form dataframes.
+
+## The reshape2 package helps you to easily go from short-form to long-form (and vice versa)
+
+The reshape2 package uses a metallurgical / blacksmithing metaphor.  A blacksmith melts down objects into simpler forms, and then casts them into complicated shapes (like a horseshoe).  Similarly, with reshape2, you can melt dataframes into simpler shapes (long form) and cast dataframes into more complicated shapes (short form).
+
+### `melt()`
+The first function that you need is the `melt()` function.  Lets melt the `barnyard_shortform` dataframe into the simpler long form.  To melt a dataframe you need to tell the function which variables are the "id variables" that should appear on each row. It will assume that all other columns are "measured variables", which will all go into a column called "variables".
+
+```{r}
+library(reshape2)
+melt(barnyard_shortform,id="animal")
+```
+
+You don't have to melt something down all the way, you can specify columns to not be melted by adding them as id columns, for example. 
+```{r}
+melt(barnyard_shortform,id=c("animal","smell"))
+```
+
+### `dcast()`
+The other function that you need is the `dcast()` function, which takes a molten data-frame and casts it in to a more complicated form. To cast a dataframe, you pass it a formula of `rows ~ columns`.  So to cast our `barnyard_longform` data-frame into a short form, we could do like so...
+
+```{r}
+dcast(barnyard_longform,formula=animal~variable)
+```
+## Now, lets look at a real dataset
+
+Kate E. Jones, Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin O'Dell, C. David L. Orme, Kamran Safi, Wes Sechrest, Elizabeth H. Boakes, Chris Carbone, Christina Connolly, Michael J. Cutts, Janine K. Foster, Richard Grenyer, Michael Habib, Christopher A. Plaster, Samantha A. Price, Elizabeth A. Rigby, Janna Rist, Amber Teacher, Olaf R. P. Bininda-Emonds, John L. Gittleman, Georgina M. Mace, and Andy Purvis. 2009. **PanTHERIA: a species-level database of life history, ecology, and geography of extant and recently extinct mammals. Ecology 90:2648.**
+
+```{r}
+pantheria <- read.table("http://resource.reedd.webfactional.com/partial_pantheria.txt",header=TRUE,sep="\t")
+head(pantheria)
+tail(pantheria)
+```
+As you can see, this data is melted....it is in the long form. Each row represents one observation of one variable for one species.  
+
+We can cast it in to a shorter form by using the `dcast()` function. We will tell it to use the `name` column for the rows, and to break up the variable column into new columns.
+```{r}
+shortPantheria <- dcast(pantheria,name~variable)
+shortPantheria$age_sexual_maturity <- as.numeric(shortPantheria$age_sexual_maturity)
+shortPantheria$homerange <- as.numeric(shortPantheria$homerange)
+shortPantheria$mass <- as.numeric(shortPantheria$mass)
+shortPantheria$activity <- as.factor(shortPantheria$activity)
+shortPantheria$family <- as.factor(shortPantheria$family)
+shortPantheria$order <- as.factor(shortPantheria$order)
+head(shortPantheria,20)
+```
+
+
+## &iexcl;&iexcl;&iexcl; Challenge #1!!!
+### Use `melt()` to melt the `shortPantheria` dataframe into a new dataframe called `Five_Col_pantheria` that only has 5 columns (i.e. collapse the 3 continuous variables into a single column).
+
+## Aggregation
+`dcast()` gets even more useful for aggregation.  When you specify a casting formula which does not uniquely identify a single observation, then `dcast()` will apply a formula to the multiple values to return a single value.  By default this function is `length()`.  This can be useful....for instance, suppose we wanted to know the number of species in each family in our PANTHERIA dataset.
+
+```{r}
+Nspecies <- dcast(data=shortPantheria,formula=family~.)
+head(Nspecies)
+```
+We don't have to use the default `length()` function, though.  We can specify our own.  For example, we could calculate the mean homerange instead of the number of species in each family like this:
+
+```{r}
+meanHomerange <- dcast(data=shortPantheria,formula=family~. ,fun.aggregate = mean, value.var="homerange")
+head(meanHomerange)
+```
+
+## &iexcl;&iexcl;&iexcl; Challenge # 2!!!
+Calculate the coefficient of variation in body mass by taxonomic family and broken down by activity pattern, using `dcast()`
+

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Reshaping Data</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/spacelab.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="octicons/octicons.css">
+
+<div id=nav-container>
+  <ul id=navbar>
+    <div class=navbar-element>
+      <li><a href='index.html'><span class="octicon octicon-home"></span> </a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='tools.html'>Tools of the Trade</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='input_output.html'>Getting Data In and Out</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='basic_graphing.html'>Basic Graphing</a></li>
+    </div>
+        
+    <div class=navbar-element>
+      <li><a href='stats.html'>Statistics</a></li>
+    </div>
+        
+    <div class=navbar-element>
+      <li><a href='datasets.html'>Datasets</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='http://wabarr.com/about'>About the Author</a></li>
+    </div>
+    
+  </ul>
+</div>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+
+<div id="header">
+<h1 class="title">Reshaping Data</h1>
+</div>
+
+
+<p>There are several ways to present a given data set. The most familiar way to anybody that has ever used a spreadsheet is called the “short form”. Let’s take for example 3 different animals that might be found in a barnyard, and 3 different variables that might be measured for each.</p>
+<pre class="sourceCode r"><code class="sourceCode r">barnyard_shortform &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+    <span class="dt">animal=</span><span class="kw">c</span>(<span class="st">&quot;chicken&quot;</span>,<span class="st">&quot;cow&quot;</span>,<span class="st">&quot;pig&quot;</span>),
+    <span class="dt">nToes=</span><span class="kw">c</span>(<span class="st">&quot;4&quot;</span>,<span class="st">&quot;2&quot;</span>,<span class="st">&quot;2&quot;</span>),
+    <span class="dt">size=</span><span class="kw">c</span>(<span class="st">&quot;small&quot;</span>,<span class="st">&quot;big&quot;</span>,<span class="st">&quot;medium&quot;</span>),
+    <span class="dt">smell=</span><span class="kw">c</span>(<span class="st">&quot;so-so&quot;</span>,<span class="st">&quot;objectionable&quot;</span>,<span class="st">&quot;more_objectionable&quot;</span>)
+  )
+barnyard_shortform</code></pre>
+<pre><code>##    animal nToes   size              smell
+## 1 chicken     4  small              so-so
+## 2     cow     2    big      objectionable
+## 3     pig     2 medium more_objectionable</code></pre>
+<p>This isn’t only way, though. A simpler way to encode the same data is the the “long form”, where each row corresponds to a single observation of a single variable.</p>
+<pre class="sourceCode r"><code class="sourceCode r">barnyard_longform &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+    <span class="dt">animal=</span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;cow&quot;</span>,<span class="st">&quot;pig&quot;</span>,<span class="st">&quot;chicken&quot;</span>),<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>)),
+    <span class="dt">variable=</span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;size&quot;</span>,<span class="st">&quot;nToes&quot;</span>,<span class="st">&quot;smell&quot;</span>),<span class="dv">3</span>),
+    <span class="dt">value =</span> <span class="kw">c</span>(<span class="st">&quot;big&quot;</span>,<span class="st">&quot;2&quot;</span>,<span class="st">&quot;objectionable&quot;</span>,<span class="st">&quot;medium&quot;</span>,<span class="st">&quot;2&quot;</span>,<span class="st">&quot;more_objectionable&quot;</span>,<span class="st">&quot;small&quot;</span>,<span class="st">&quot;4&quot;</span>,<span class="st">&quot;so-so&quot;</span>)
+    
+  )
+barnyard_longform</code></pre>
+<pre><code>##    animal variable              value
+## 1     cow     size                big
+## 2     cow    nToes                  2
+## 3     cow    smell      objectionable
+## 4     pig     size             medium
+## 5     pig    nToes                  2
+## 6     pig    smell more_objectionable
+## 7 chicken     size              small
+## 8 chicken    nToes                  4
+## 9 chicken    smell              so-so</code></pre>
+<p>Notice that in the long-form data-frame, each row is a single observation of a single variable. The column names are kind of generic, because all the important data for each observation is contained in the row. <strong>The row is all important in long form data!</strong></p>
+<p>It should be obvious what I mean by the “shape” of the data-frame at this point. The short form data frame is short and wide (3 rows,4 columns), while the long form data frame is long and skinny (9 rows, but only 3 columns).</p>
+<p><strong>Importantly, one row does not correspond to a single observation in the short form. There are many different observations in the same column. By contrast, the columns take on great significance in long form data</strong> The data are exactly the same, but the shape (and the column headings) are different.</p>
+<p>But the long form is stupid. Why would I ever use it??</p>
+<div id="two-reasons-that-i-can-think-of" class="section level3">
+<h3>Two reasons that I can think of:</h3>
+<ol style="list-style-type: decimal">
+<li>If you need to do aggregation and complex reshaping of data, the easiest way is often THROUGH the long form. In other words, once you put a dataframe in long form, it can then be transformed into any other shape.</li>
+<li>Several very useful tasks in ggplot operate on long-form dataframes.</li>
+</ol>
+</div>
+<div id="the-reshape2-package-helps-you-to-easily-go-from-short-form-to-long-form-and-vice-versa" class="section level2">
+<h2>The reshape2 package helps you to easily go from short-form to long-form (and vice versa)</h2>
+<p>The reshape2 package uses a metallurgical / blacksmithing metaphor. A blacksmith melts down objects into simpler forms, and then casts them into complicated shapes (like a horseshoe). Similarly, with reshape2, you can melt dataframes into simpler shapes (long form) and cast dataframes into more complicated shapes (short form).</p>
+<div id="melt" class="section level3">
+<h3><code>melt()</code></h3>
+<p>The first function that you need is the <code>melt()</code> function. Lets melt the <code>barnyard_shortform</code> dataframe into the simpler long form. To melt a dataframe you need to tell the function which variables are the “id variables” that should appear on each row. It will assume that all other columns are “measured variables”, which will all go into a column called “variables”.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
+<span class="kw">melt</span>(barnyard_shortform,<span class="dt">id=</span><span class="st">&quot;animal&quot;</span>)</code></pre>
+<pre><code>##    animal variable              value
+## 1 chicken    nToes                  4
+## 2     cow    nToes                  2
+## 3     pig    nToes                  2
+## 4 chicken     size              small
+## 5     cow     size                big
+## 6     pig     size             medium
+## 7 chicken    smell              so-so
+## 8     cow    smell      objectionable
+## 9     pig    smell more_objectionable</code></pre>
+<p>You don’t have to melt something down all the way, you can specify columns to not be melted by adding them as id columns, for example.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">melt</span>(barnyard_shortform,<span class="dt">id=</span><span class="kw">c</span>(<span class="st">&quot;animal&quot;</span>,<span class="st">&quot;smell&quot;</span>))</code></pre>
+<pre><code>##    animal              smell variable  value
+## 1 chicken              so-so    nToes      4
+## 2     cow      objectionable    nToes      2
+## 3     pig more_objectionable    nToes      2
+## 4 chicken              so-so     size  small
+## 5     cow      objectionable     size    big
+## 6     pig more_objectionable     size medium</code></pre>
+</div>
+<div id="dcast" class="section level3">
+<h3><code>dcast()</code></h3>
+<p>The other function that you need is the <code>dcast()</code> function, which takes a molten data-frame and casts it in to a more complicated form. To cast a dataframe, you pass it a formula of <code>rows ~ columns</code>. So to cast our <code>barnyard_longform</code> data-frame into a short form, we could do like so…</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dcast</span>(barnyard_longform,<span class="dt">formula=</span>animal~variable)</code></pre>
+<pre><code>##    animal nToes   size              smell
+## 1 chicken     4  small              so-so
+## 2     cow     2    big      objectionable
+## 3     pig     2 medium more_objectionable</code></pre>
+</div>
+</div>
+<div id="now-lets-look-at-a-real-dataset" class="section level2">
+<h2>Now, lets look at a real dataset</h2>
+<p>Kate E. Jones, Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin O’Dell, C. David L. Orme, Kamran Safi, Wes Sechrest, Elizabeth H. Boakes, Chris Carbone, Christina Connolly, Michael J. Cutts, Janine K. Foster, Richard Grenyer, Michael Habib, Christopher A. Plaster, Samantha A. Price, Elizabeth A. Rigby, Janna Rist, Amber Teacher, Olaf R. P. Bininda-Emonds, John L. Gittleman, Georgina M. Mace, and Andy Purvis. 2009. <strong>PanTHERIA: a species-level database of life history, ecology, and geography of extant and recently extinct mammals. Ecology 90:2648.</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r">pantheria &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;http://resource.reedd.webfactional.com/partial_pantheria.txt&quot;</span>,<span class="dt">header=</span><span class="ot">TRUE</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
+<span class="kw">head</span>(pantheria)</code></pre>
+<pre><code>##                     name variable value
+## 1    Abrothrix olivaceus activity     2
+## 2       Acinonyx jubatus activity     3
+## 3       Acomys cahirinus activity     1
+## 4     Aepyceros melampus activity     3
+## 5 Ailuropoda melanoleuca activity     2
+## 6        Ailurus fulgens activity     2</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(pantheria)</code></pre>
+<pre><code>##                  name variable         value
+## 2461 Vombatus ursinus    order Diprotodontia
+## 2462      Vulpes cana    order     Carnivora
+## 2463   Vulpes lagopus    order     Carnivora
+## 2464     Vulpes velox    order     Carnivora
+## 2465    Vulpes vulpes    order     Carnivora
+## 2466 Wallabia bicolor    order Diprotodontia</code></pre>
+<p>As you can see, this data is melted….it is in the long form. Each row represents one observation of one variable for one species.</p>
+<p>We can cast it in to a shorter form by using the <code>dcast()</code> function. We will tell it to use the <code>name</code> column for the rows, and to break up the variable column into new columns.</p>
+<pre class="sourceCode r"><code class="sourceCode r">shortPantheria &lt;-<span class="st"> </span><span class="kw">dcast</span>(pantheria,name~variable)
+shortPantheria$age_sexual_maturity &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(shortPantheria$age_sexual_maturity)
+shortPantheria$homerange &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(shortPantheria$homerange)
+shortPantheria$mass &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(shortPantheria$mass)
+shortPantheria$activity &lt;-<span class="st"> </span><span class="kw">as.factor</span>(shortPantheria$activity)
+shortPantheria$family &lt;-<span class="st"> </span><span class="kw">as.factor</span>(shortPantheria$family)
+shortPantheria$order &lt;-<span class="st"> </span><span class="kw">as.factor</span>(shortPantheria$order)
+<span class="kw">head</span>(shortPantheria,<span class="dv">20</span>)</code></pre>
+<pre><code>##                         name activity age_sexual_maturity      family
+## 1        Abrothrix olivaceus        2              170.38  Cricetidae
+## 2           Acinonyx jubatus        3              741.97     Felidae
+## 3           Acomys cahirinus        1               51.90     Muridae
+## 4         Aepyceros melampus        3              498.97     Bovidae
+## 5     Ailuropoda melanoleuca        2             2413.02     Ursidae
+## 6            Ailurus fulgens        2              604.05   Ailuridae
+## 7      Alcelaphus buselaphus        3              827.69     Bovidae
+## 8                Alces alces        2              668.20    Cervidae
+## 9          Alouatta palliata        3             1578.42    Atelidae
+## 10        Alouatta seniculus        3             1690.22    Atelidae
+## 11 Ammospermophilus leucurus        3              377.37   Sciuridae
+## 12  Ammospermophilus nelsoni        3              377.57   Sciuridae
+## 13       Antechinus stuartii        2              329.99  Dasyuridae
+## 14            Aonyx capensis        2              371.23  Mustelidae
+## 15         Aotus trivirgatus        1              736.60     Aotidae
+## 16       Apodemus sylvaticus        2               57.93     Muridae
+## 17          Ateles geoffroyi        3             2104.57    Atelidae
+## 18           Ateles paniscus        3             2104.57    Atelidae
+## 19        Atilax paludinosus        2              234.83 Herpestidae
+## 20           Baiomys taylori        2               68.35  Cricetidae
+##    homerange      mass          order
+## 1  4.481e-04     24.52       Rodentia
+## 2  8.827e+01  50577.92      Carnivora
+## 3  8.804e-04     41.16       Rodentia
+## 4  1.970e+00  52591.69   Artiodactyla
+## 5  3.550e+00 117999.99      Carnivora
+## 6  1.430e+00   5170.08      Carnivora
+## 7  2.730e+00 160937.86   Artiodactyla
+## 8  7.175e+01 461900.76   Artiodactyla
+## 9  1.900e-01   6576.99       Primates
+## 10 1.000e-01   6398.31       Primates
+## 11 4.000e-02    103.92       Rodentia
+## 12 3.000e-02    160.42       Rodentia
+## 13 8.783e-03     29.01 Dasyuromorphia
+## 14 9.974e+01  19322.22      Carnivora
+## 15 2.000e-02    912.40       Primates
+## 16 7.114e-03     21.90       Rodentia
+## 17 7.300e-01   7582.40       Primates
+## 18 1.360e+00   8697.25       Primates
+## 19 1.730e+00   3600.16      Carnivora
+## 20 3.846e-04      7.43       Rodentia</code></pre>
+</div>
+<div id="challenge-1" class="section level2">
+<h2>¡¡¡ Challenge #1!!!</h2>
+<div id="use-melt-to-melt-the-shortpantheria-dataframe-into-a-new-dataframe-called-five_col_pantheria-that-only-has-5-columns-i.e.collapse-the-3-continuous-variables-into-a-single-column." class="section level3">
+<h3>Use <code>melt()</code> to melt the <code>shortPantheria</code> dataframe into a new dataframe called <code>Five_Col_pantheria</code> that only has 5 columns (i.e. collapse the 3 continuous variables into a single column).</h3>
+</div>
+</div>
+<div id="aggregation" class="section level2">
+<h2>Aggregation</h2>
+<p><code>dcast()</code> gets even more useful for aggregation. When you specify a casting formula which does not uniquely identify a single observation, then <code>dcast()</code> will apply a formula to the multiple values to return a single value. By default this function is <code>length()</code>. This can be useful….for instance, suppose we wanted to know the number of species in each family in our PANTHERIA dataset.</p>
+<pre class="sourceCode r"><code class="sourceCode r">Nspecies &lt;-<span class="st"> </span><span class="kw">dcast</span>(<span class="dt">data=</span>shortPantheria,<span class="dt">formula=</span>family~.)</code></pre>
+<pre><code>## Using order as value column: use value.var to override.
+## Aggregation function missing: defaulting to length</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(Nspecies)</code></pre>
+<pre><code>##         family NA
+## 1    Ailuridae  1
+## 2      Aotidae  1
+## 3     Atelidae  6
+## 4 Bathyergidae  1
+## 5      Bovidae 19
+## 6  Burramyidae  1</code></pre>
+<p>We don’t have to use the default <code>length()</code> function, though. We can specify our own. For example, we could calculate the mean homerange instead of the number of species in each family like this:</p>
+<pre class="sourceCode r"><code class="sourceCode r">meanHomerange &lt;-<span class="st"> </span><span class="kw">dcast</span>(<span class="dt">data=</span>shortPantheria,<span class="dt">formula=</span>family~. ,<span class="dt">fun.aggregate =</span> mean, <span class="dt">value.var=</span><span class="st">&quot;homerange&quot;</span>)
+<span class="kw">head</span>(meanHomerange)</code></pre>
+<pre><code>##         family        NA
+## 1    Ailuridae  1.430000
+## 2      Aotidae  0.020000
+## 3     Atelidae  1.040000
+## 4 Bathyergidae  0.001456
+## 5      Bovidae 63.828947
+## 6  Burramyidae  0.005565</code></pre>
+</div>
+<div id="challenge-2" class="section level2">
+<h2>¡¡¡ Challenge # 2!!!</h2>
+<p>Calculate the coefficient of variation in body mass by taxonomic family and broken down by activity pattern, using <code>dcast()</code></p>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with --self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
