@@ -6,11 +6,7 @@ We will use a built-in dataset of chick weights fed on different types of feed. 
 
 ```{r boxplot, fig.width=10}
 library(ggplot2)
-qplot(x=feed, 
-      y=weight, 
-      data=chickwts, 
-      geom="boxplot",
-      fill=feed) + 
+qplot(x=feed, y=weight, data=chickwts, geom="boxplot", fill=feed) + 
   theme_bw(20)
 ```
 
