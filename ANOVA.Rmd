@@ -1,0 +1,40 @@
+---
+title: "ANOVA"
+---
+
+We will use a built-in dataset of chick weights fed on different types of feed. The dataset can be accessed using the built-in variable `chickwts`.  First, lets plot some boxplots using `qplot()`.
+
+```{r boxplot, fig.width=10}
+library(ggplot2)
+qplot(x=feed, 
+      y=weight, 
+      data=chickwts, 
+      geom="boxplot",
+      fill=feed) + 
+  theme_bw(20)
+```
+
+From the boxplots, it sure looks like there **might** be differences in weight between the different feed types.  To be sure, we should do an ANOVA on the data. You can do an ANOVA in R using the linear model function `lm()`, like so. 
+
+## using `lm()`
+
+```{r ANOVA}
+myANOVA <- lm(weight ~ feed, data=chickwts)
+```
+
+
+Nothing apears to happen, because we have saved the output to a variable: `myANOVA`.  Now lets output the results as a standard ANOVA table. 
+
+## Standard ANOVA table
+
+```{r anovaTable}
+anova(myANOVA)
+```
+
+This informs us that the categorical variable `feed` has a highly significant effect on the weight variable `weight`, but it doesn't tell us anything more specific about the differences between differnt levels of the `feed` variable.  We can get a little more information with the `summary()` function.
+
+## Summarizing linear models with `summary()`
+
+```{r summaryANOVA}
+summary(myANOVA)
+```

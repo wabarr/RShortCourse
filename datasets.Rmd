@@ -2,6 +2,6 @@
 title: "Datasets"
 ---
 
-A list links to all the datasets used in this course
+A list links to all the datasets used in this course.
 
 * [femur_lengths.txt](https://dl.dropboxusercontent.com/u/1648032/datasets_for_R_course/femur_lengths.txt)

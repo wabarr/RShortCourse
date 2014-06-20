@@ -1,0 +1,8 @@
+---
+title: "Statistics"
+---
+
+We will cover the implementation of several basic statistical techniques:
+
+* [ANOVA](ANOVA.html)
+* [Regression](regression.html)

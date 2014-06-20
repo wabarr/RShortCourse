@@ -1,0 +1,5 @@
+---
+title: "Tools of the Trade"
+---
+
+We will be relying heavily on a piece of software called Rstudio. There are a [ton of reasons](http://www.ancienteco.com/2013/02/top-6-reasons-you-need-to-be-using.html) to use Rstudio.  It includes a lot of time-saving features!
