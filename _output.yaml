@@ -1,6 +1,6 @@
 html_document:
-    theme: spacelab
-    highlight: pygments
+    theme: cosmo
+    highlight: haddock
     css: style.css
     self_contained: false
     includes:
