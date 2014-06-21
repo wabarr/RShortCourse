@@ -3,15 +3,17 @@ title: "Advanced ggplot2"
 ---
 
 To briefly summarize: in `ggplot2` a plot is thought of as having several parts which are either background elements or individual layer elements.  
+
 * background elements (shared by all layers in a plot)
-  * coordinate system
-  * scales - mapping of data values into plot values (either coordinates or aesthetic properties like color values)
-  * facets (optional) - specification of subplots within a plot, mapped to a column in the dataframe
-* layer
-  * data - a dataframe
-  * mapping - linking of data locums to aesthetic elements (x,y,color,shape,size,etc)
-  * stat - a statistical transformation of rows in the dataframe (often this is the identity transformation)
-  * geom - a graphical representation of the stat
+    * coordinate system
+    * scales - mapping of data values into plot values (either coordinates or aesthetic properties like color values)
+    * facets (optional) - specification of subplots within a plot, mapped to a column in the dataframe
+    
+* layer elements
+    * data - a dataframe
+    * mapping - linking of data locums to aesthetic elements (x,y,color,shape,size,etc)
+    * stat - a statistical transformation of rows in the dataframe (often this is the identity transformation)
+    * geom - a graphical representation of the stat
   
 ## The Basic workflow
 
