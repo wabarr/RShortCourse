@@ -11,4 +11,4 @@ Welcome to this short course in the R statistical programming language. The plan
 
 R is the most popular and most flexible tool for doing scripted data analysis currently available.  There is a rather steep learning curve in R, but once you get 'over-the-hump' it will make your data analysis easier, faster, and more reproducible.  
 
-Let's get started with the task of [getting data in and out](input_output.html).
+Let's get started by looking at some [tools of the trade](tools.html).
