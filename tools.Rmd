@@ -21,8 +21,25 @@ This feature is incredible.  Instead of doing regular .R script files, you can c
 
 ### Example R Markdown document
 
-![mkdown](images/mkdown.png)
+This sentence is just normal text, made for humans to read.  The following bit is a "code chunk", which is set off by the ``` characters and consists of actual R code that gets run, and the results knitted back into the document. 
+
+\`\`\`{r examplechunk}<br>
+x <- rnorm(100)<br>
+y <- (x * 0.3) + rnorm(100, sd=0.2)<br>
+plot(x,y,pch=16)<br>
+\`\`\`
+
+Here is some more human readable text right after the code chunk.  
 
 ### Output of R Markdown after knitting
 
-![mkdownresult](images/mkdownresult.png)
+
+This sentence is just normal text, made for humans to read.  The following bit is a "code chunk", which is set off by the ``` characters and consists of actual R code that gets run, and the results knitted back into the document. 
+
+```{r echo=FALSE}
+x <- rnorm(100)
+y <- (x * 0.3) + rnorm(100, sd=0.2)
+plot(x,y,pch=16)
+```
+
+Here is some more human readable text right after the code chunk. 
