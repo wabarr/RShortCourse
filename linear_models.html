@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>General Linear Models</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/cosmo.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="octicons/octicons.css">
+
+<div id=nav-container>
+  <ul id=navbar>
+    <div class=navbar-element>
+      <li><a href='index.html'><span class="octicon octicon-home"></span> </a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='tools.html'>Tools of the Trade</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='input_output.html'>Getting Data In and Out</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='basic_graphing.html'>Basic Graphing</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='advanced_graphing.html'>Advanced Graphing</a></li>
+    </div>
+        
+    <div class=navbar-element>
+      <li><a href='stats.html'>Statistics</a></li>
+    </div>
+        
+    <div class=navbar-element>
+      <li><a href='datasets.html'>Datasets</a></li>
+    </div>
+    
+    <div class=navbar-element>
+      <li><a href='http://wabarr.com/about'>About the Author</a></li>
+    </div>
+  </ul>
+</div>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; }
+code > span.ch { color: #008080; }
+code > span.st { color: #008080; }
+code > span.co { color: #008000; }
+code > span.ot { color: #ff4000; }
+code > span.al { color: #ff0000; }
+code > span.er { font-weight: bold; }
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+
+<div id="header">
+<h1 class="title">General Linear Models</h1>
+</div>
+
+
+<p>Many of the most familiar statistical techniques (regression, multiple regression, ANOVA, ANCOVA) are all part of a family of methods known as General Linear Models. As such, there is a single function <code>lm()</code> in R to do all of these analyses – who says R is hard to learn? ;-)</p>
+<p><strong>Note</strong>: this general linear model is distinct from <strong>generalized</strong> linear models, which relaxes some of the statistical assumptions of the general linear model.</p>
+<div id="ordinary-least-squares-regression" class="section level2">
+<h2>Ordinary Least Squares Regression</h2>
+<p>OLS Regression is the simplest form, consisting of a continuous response variable and a single continuous predictor variable.</p>
+</div>
+<div id="multiple-regression" class="section level2">
+<h2>Multiple Regression</h2>
+<p>Multiple regression is a slightly more complicated model, with a continuous response variable and multiple continuous predictor variables.</p>
+</div>
+<div id="anova" class="section level2">
+<h2>ANOVA</h2>
+<p>ANOVA is analogous to regression. Both have a continuous response variable: in ANOVA, the predictor is a categorical variable, rather than the continuous predictor in regression.</p>
+<p>We will use a built-in data set of chick weights fed on different types of feed. The data set can be accessed using the built-in variable <code>chickwts</code>. First, lets plot some box plots using <code>qplot()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">qplot</span>(<span class="dt">x=</span>feed, <span class="dt">y=</span>weight, <span class="dt">data=</span>chickwts, <span class="dt">geom=</span><span class="st">&quot;boxplot&quot;</span>, <span class="dt">fill=</span>feed) +<span class="st"> </span><span class="kw">theme_bw</span>(<span class="dv">20</span>)</code></pre>
+<p><img src="linear_models_files/figure-html/boxplot.png" title="plot of chunk boxplot" alt="plot of chunk boxplot" width="960" /></p>
+<p>From the box plots, it sure looks like there <strong>might</strong> be differences in weight between the different feed types. To be sure, we should do an ANOVA on the data. R automatically does an ANOVA when you pass a categorical variable as the predictor variable using <code>lm()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">myANOVA &lt;-<span class="st"> </span><span class="kw">lm</span>(weight ~<span class="st"> </span>feed, <span class="dt">data=</span>chickwts)</code></pre>
+<p>Nothing appears to happen, because we have saved the output to a variable: <code>myANOVA</code>. Now lets output the results as a standard ANOVA table.</p>
+<div id="standard-anova-table" class="section level3">
+<h3>Standard ANOVA table</h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(myANOVA)</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: weight
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)    
+## feed       5 231129   46226    15.4 5.9e-10 ***
+## Residuals 65 195556    3009                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>This informs us that the categorical variable <code>feed</code> has a highly significant effect on the weight variable <code>weight</code>, but it doesn’t tell us anything more specific about the differences between different levels of the <code>feed</code> variable. We can get a little more information with the <code>summary()</code> function.</p>
+</div>
+<div id="summarizing-linear-models-with-summary" class="section level3">
+<h3>Summarizing linear models with <code>summary()</code></h3>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(myANOVA)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = weight ~ feed, data = chickwts)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -123.91  -34.41    1.57   38.17  103.09 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     323.58      15.83   20.44  &lt; 2e-16 ***
+## feedhorsebean  -163.38      23.49   -6.96  2.1e-09 ***
+## feedlinseed    -104.83      22.39   -4.68  1.5e-05 ***
+## feedmeatmeal    -46.67      22.90   -2.04  0.04557 *  
+## feedsoybean     -77.15      21.58   -3.58  0.00067 ***
+## feedsunflower     5.33      22.39    0.24  0.81249    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 54.9 on 65 degrees of freedom
+## Multiple R-squared:  0.542,  Adjusted R-squared:  0.506 
+## F-statistic: 15.4 on 5 and 65 DF,  p-value: 5.94e-10</code></pre>
+</div>
+</div>
+<div id="ancova" class="section level2">
+<h2>ANCOVA</h2>
+<p>ANCOVA adds one or more continuous co-variate predictors to the standard ANOVA. Thus, ANCOVA has a continuous response variable, one or more categorical predictors, and one or more continuous co-variates.</p>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with --self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
