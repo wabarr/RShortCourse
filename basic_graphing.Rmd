@@ -8,3 +8,70 @@ I prefer to not to use the standard graphics facilities in R, which are rather k
 
 `ggplot2` provides a convenient function called `qplot()` for making quick plots that don't require a lot of customization. If you need full control over all the gritty details, then you need to learn more about [advanced ggplotting](advanced_graphing.html).  Lets take a crack at `qplot()` first. 
 
+## Basic Plotting
+
+We will use a built in dataset called `mtcars`.  Lets take a look at the head (i.e. first few rows) of this dataset.
+
+```{r}
+head(mtcars)
+```
+
+
+### Univariate plot
+
+The simplest usage of `qplot()` is to provide a variable for the x axis, and a dataframe in which to look for this variable.  `qplot()` will attempt to guess the best `geom` (graphical geometric representation) with which to display the data. Here we plot a histogram of vehicle weights.
+
+```{r}
+library(ggplot2)
+qplot(x=wt, data=mtcars)
+```
+
+### Bivariate Plot
+
+If we specify a variable for the y axis, then the default `geom` is a scatter of points. This time we will also specify a value for `main` which is the main title. 
+
+```{r}
+qplot(x=wt, y=mpg, data=mtcars, main="Vehicle MPG on Vehicle Weight (lb/1000)")
+```
+
+### Boxplot
+
+Let's do a plot of MPG against number of cylinders.
+
+```{r}
+qplot(x=cyl, y=mpg, data=mtcars)
+```
+
+We got points as the `geom`, but we can explicitly tell `qplot()` to use a different geom. Note: we will also convert `cyl` to a factor (categorical variable). What happens if you don't convert?  Do you understand why this happens?
+
+```{r}
+qplot(x=factor(cyl), y=mpg, data=mtcars, geom="boxplot")
+```
+
+## Layers
+
+The most common layer you will want to add is a line representing a regression. To do this, we start with the bivariate plot, then add a new layer. 
+
+```{r}
+qplot(x=wt, y=mpg, data=mtcars) + stat_smooth(method = "lm")
+```
+
+## Facets
+
+Suppose we wanted to plot vehicle weight by mpg, but to graphically take into account the number of cylinders.  We do that using `facets`. We provide a formula in the form of `rows ~ columns`. If we only have one variable we just leave the first part blank, as below.
+
+```{r}
+qplot(x=wt, y=mpg, data=mtcars, facets = ~cyl)
+```
+
+## Themes
+
+There are a couple of shortcut theme functions that help you customize the look and feel of plots.  A very popular one is `theme_bw()` which gets rid of the default grey background. You can also specify a value for the base text size, to increase size for presentations, etc. All the text elements will scale intelligently. Also check out `theme_classic()`
+
+```{r}
+qplot(x=wt, y=mpg, data=mtcars, main="Vehicle MPG on Vehicle Weight (lb/1000)") + theme_bw(20)
+
+qplot(x=wt, y=mpg, data=mtcars, main="Vehicle MPG on Vehicle Weight (lb/1000)") + theme_classic(20)
+
+```
+

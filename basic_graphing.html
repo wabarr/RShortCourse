@@ -57,6 +57,27 @@
 </div>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; }
+code > span.ch { color: #008080; }
+code > span.st { color: #008080; }
+code > span.co { color: #008000; }
+code > span.ot { color: #ff4000; }
+code > span.al { color: #ff0000; }
+code > span.er { font-weight: bold; }
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 
@@ -83,6 +104,61 @@
 <h3><span class="mega-octicon octicon-alert"></span> I am opinionated when it comes to graphics in R. <span class="mega-octicon octicon-alert"></span></h3>
 <p>I prefer to not to use the standard graphics facilities in R, which are rather kludgy and take lots of tweaking to make the graphs look great. Instead, I prefer to use the <code>ggplot2</code> package. You need to install this package using the standard package manager: Tools &gt; Package Manager. Then you will load the packge using the command <code>library(ggplot2)</code>.</p>
 <p><code>ggplot2</code> provides a convenient function called <code>qplot()</code> for making quick plots that don’t require a lot of customization. If you need full control over all the gritty details, then you need to learn more about <a href="advanced_graphing.html">advanced ggplotting</a>. Lets take a crack at <code>qplot()</code> first.</p>
+</div>
+<div id="basic-plotting" class="section level2">
+<h2>Basic Plotting</h2>
+<p>We will use a built in dataset called <code>mtcars</code>. Lets take a look at the head (i.e. first few rows) of this dataset.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mtcars)</code></pre>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<div id="univariate-plot" class="section level3">
+<h3>Univariate plot</h3>
+<p>The simplest usage of <code>qplot()</code> is to provide a variable for the x axis, and a dataframe in which to look for this variable. <code>qplot()</code> will attempt to guess the best <code>geom</code> (graphical geometric representation) with which to display the data. Here we plot a histogram of vehicle weights.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">qplot</span>(<span class="dt">x=</span>wt, <span class="dt">data=</span>mtcars)</code></pre>
+<pre><code>## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="672" /></p>
+</div>
+<div id="bivariate-plot" class="section level3">
+<h3>Bivariate Plot</h3>
+<p>If we specify a variable for the y axis, then the default <code>geom</code> is a scatter of points. This time we will also specify a value for <code>main</code> which is the main title.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg, <span class="dt">data=</span>mtcars, <span class="dt">main=</span><span class="st">&quot;Vehicle MPG on Vehicle Weight (lb/1000)&quot;</span>)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="672" /></p>
+</div>
+<div id="boxplot" class="section level3">
+<h3>Boxplot</h3>
+<p>Let’s do a plot of MPG against number of cylinders.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x=</span>cyl, <span class="dt">y=</span>mpg, <span class="dt">data=</span>mtcars)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="672" /></p>
+<p>We got points as the <code>geom</code>, but we can explicitly tell <code>qplot()</code> to use a different geom. Note: we will also convert <code>cyl</code> to a factor (categorical variable). What happens if you don’t convert? Do you understand why this happens?</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x=</span><span class="kw">factor</span>(cyl), <span class="dt">y=</span>mpg, <span class="dt">data=</span>mtcars, <span class="dt">geom=</span><span class="st">&quot;boxplot&quot;</span>)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="672" /></p>
+</div>
+</div>
+<div id="layers" class="section level2">
+<h2>Layers</h2>
+<p>The most common layer you will want to add is a line representing a regression. To do this, we start with the bivariate plot, then add a new layer.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg, <span class="dt">data=</span>mtcars) +<span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="672" /></p>
+</div>
+<div id="facets" class="section level2">
+<h2>Facets</h2>
+<p>Suppose we wanted to plot vehicle weight by mpg, but to graphically take into account the number of cylinders. We do that using <code>facets</code>. We provide a formula in the form of <code>rows ~ columns</code>. If we only have one variable we just leave the first part blank, as below.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg, <span class="dt">data=</span>mtcars, <span class="dt">facets =</span> ~cyl)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="672" /></p>
+</div>
+<div id="themes" class="section level2">
+<h2>Themes</h2>
+<p>There are a couple of shortcut theme functions that help you customize the look and feel of plots. A very popular one is <code>theme_bw()</code> which gets rid of the default grey background. You can also specify a value for the base text size, to increase size for presentations, etc. All the text elements will scale intelligently. Also check out <code>theme_classic()</code></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg, <span class="dt">data=</span>mtcars, <span class="dt">main=</span><span class="st">&quot;Vehicle MPG on Vehicle Weight (lb/1000)&quot;</span>) +<span class="st"> </span><span class="kw">theme_bw</span>(<span class="dv">20</span>)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-81.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qplot</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>mpg, <span class="dt">data=</span>mtcars, <span class="dt">main=</span><span class="st">&quot;Vehicle MPG on Vehicle Weight (lb/1000)&quot;</span>) +<span class="st"> </span><span class="kw">theme_classic</span>(<span class="dv">20</span>)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-82.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="672" /></p>
 </div>
 
 

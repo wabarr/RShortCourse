@@ -44,6 +44,6 @@ plot(x,y,pch=16)
 
 Here is some more human readable text right after the code chunk. 
 
-### Next Topic
+## Next Topic
 
 [Getting Data In and Out](input_output.html)

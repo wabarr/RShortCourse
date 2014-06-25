@@ -2,7 +2,7 @@
 title: "R Short Course"
 ---
 
-## W. Andrew Barr
+### W. Andrew Barr
 
 Welcome to this short course in the R statistical programming language. The plan is to get you doing basic data manipulation, graphing, and analysis as quickly as possible.  We won't cover basic statistical concepts, but rather we will focus on how to implement the analyses that you already know to do in R.  
 
