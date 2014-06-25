@@ -89,22 +89,26 @@
 <p><img src="images/Rstudio.png" alt="Rstudio" /></p>
 <div id="project-files" class="section level2">
 <h2>Project Files</h2>
-<p>I would highly recommend using the “Projects” feature of Rstudio. This isolates all your files related to a particular projet in a single directory, and it also takes care of setting your working directory: this means you can often avoid typing <code>/Users/wabarr/Projects/myProject/datafile.txt</code> and instead just type <code>datafile.txt</code>.</p>
+<p>I would highly recommend using the “Projects” feature of Rstudio. This isolates all your files related to a particular projet in a single directory, and it also takes care of setting your working directory: this means you can often avoid typing <code>/Users/wabarr/Projects/myProject/datafile.txt</code> and instead just type <code>datafile.txt</code>. You can start a project using the RStudio menu (File &gt; New Project).</p>
 </div>
 <div id="r-markdown" class="section level2">
 <h2>R Markdown</h2>
-<p>This feature is incredible. Instead of doing regular .R script files, you can create a special type of script file called an R markdown file, which allows you to mix human readable text with snippets of R code. At any point you can “knit” the R Markdown file, at which point the code snippets get run, and any results (figures, text output) gets combined with the human readable comments, and knit into a single pdf, word doc or html file. This is how I work mostly….basically writing the methods section of a paper interactively as I write the analysis code.</p>
+<p>This feature is incredible. Instead of creating regular .R script files, you can create a special type of script file called an R markdown file, which allows you to mix human readable text with snippets of R code. At any point you can “knit” the R Markdown file, which causes the code snippets to be run. Any results (figures or text output) get combined with the human readable parts, and combined into a single pdf, word doc, or html file. This is how I work mostly….basically writing the methods section of a paper interactively as I write the analysis code. This website is written entirely in Rmarkdown.</p>
 <div id="example-r-markdown-document" class="section level3">
 <h3>Example R Markdown document</h3>
-<p>This sentence is just normal text, made for humans to read. The following bit is a “code chunk”, which is set off by the ``` characters and consists of actual R code that gets run, and the results knitted back into the document.</p>
+<p>This sentence is just normal text, made for humans to read. The following bit is a “code chunk”, which is set off by the ``` characters and consists of actual R code that gets run, and the results knitted back into the document. You can also put R code inline like this. What is 2 + 2? The answer is `r 2 + 2`.</p>
 <p>```{r examplechunk}<br> x &lt;- rnorm(100)<br> y &lt;- (x * 0.3) + rnorm(100, sd=0.2)<br> plot(x,y,pch=16)<br> ```</p>
 <p>Here is some more human readable text right after the code chunk.</p>
 </div>
 <div id="output-of-r-markdown-after-knitting" class="section level3">
 <h3>Output of R Markdown after knitting</h3>
-<p>This sentence is just normal text, made for humans to read. The following bit is a “code chunk”, which is set off by the ``` characters and consists of actual R code that gets run, and the results knitted back into the document.</p>
+<p>This sentence is just normal text, made for humans to read. The following bit is a “code chunk”, which is set off by the ``` characters and consists of actual R code that gets run, and the results knitted back into the document. You can also put R code inline like this. What is 2 + 2? The answer is 4.</p>
 <p><img src="tools_files/figure-html/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" width="672" /></p>
 <p>Here is some more human readable text right after the code chunk.</p>
+</div>
+<div id="next-topic" class="section level3">
+<h3>Next Topic</h3>
+<p><a href="input_output.html">Getting Data In and Out</a></p>
 </div>
 </div>
 

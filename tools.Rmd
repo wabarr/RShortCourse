@@ -14,14 +14,14 @@ We will be relying heavily on a piece of software called Rstudio. There are a [t
 ![Rstudio](images/Rstudio.png)
 
 ## Project Files
-I would highly recommend using the "Projects" feature of Rstudio.  This isolates all your files related to a particular projet in a single directory, and it also takes care of setting your working directory: this means you can often avoid typing `/Users/wabarr/Projects/myProject/datafile.txt` and instead just type `datafile.txt`. 
+I would highly recommend using the "Projects" feature of Rstudio.  This isolates all your files related to a particular projet in a single directory, and it also takes care of setting your working directory: this means you can often avoid typing `/Users/wabarr/Projects/myProject/datafile.txt` and instead just type `datafile.txt`. You can start a project using the RStudio menu (File > New Project).
 
 ## R Markdown
-This feature is incredible.  Instead of doing regular .R script files, you can create a special type of script file called an R markdown file, which allows you to mix human readable text with snippets of R code. At any point you can "knit" the R Markdown file, at which point the code snippets get run, and any results (figures, text output) gets combined with the human readable comments, and knit into a single pdf, word doc or html file.  This is how I work mostly....basically writing the methods section of a paper interactively as I write the analysis code.  
+This feature is incredible.  Instead of creating regular .R script files, you can create a special type of script file called an R markdown file, which allows you to mix human readable text with snippets of R code. At any point you can "knit" the R Markdown file, which causes the code snippets to be run. Any results (figures or text output) get combined with the human readable parts, and combined into a single pdf, word doc, or html file.  This is how I work mostly....basically writing the methods section of a paper interactively as I write the analysis code. This website is written entirely in Rmarkdown.
 
 ### Example R Markdown document
 
-This sentence is just normal text, made for humans to read.  The following bit is a "code chunk", which is set off by the ``` characters and consists of actual R code that gets run, and the results knitted back into the document. 
+This sentence is just normal text, made for humans to read.  The following bit is a "code chunk", which is set off by the \`\`\` characters and consists of actual R code that gets run, and the results knitted back into the document. You can also put R code inline like this.  What is 2 + 2? The answer is \`&#114; 2 + 2`.
 
 \`\`\`{r examplechunk}<br>
 x <- rnorm(100)<br>
@@ -34,7 +34,7 @@ Here is some more human readable text right after the code chunk.
 ### Output of R Markdown after knitting
 
 
-This sentence is just normal text, made for humans to read.  The following bit is a "code chunk", which is set off by the ``` characters and consists of actual R code that gets run, and the results knitted back into the document. 
+This sentence is just normal text, made for humans to read.  The following bit is a "code chunk", which is set off by the \`\`\` characters and consists of actual R code that gets run, and the results knitted back into the document. You can also put R code inline like this.  What is 2 + 2? The answer is `r 2 + 2`.
 
 ```{r echo=FALSE}
 x <- rnorm(100)
@@ -43,3 +43,7 @@ plot(x,y,pch=16)
 ```
 
 Here is some more human readable text right after the code chunk. 
+
+### Next Topic
+
+[Getting Data In and Out](input_output.html)
