@@ -4,18 +4,40 @@ title: "Basics"
 
 ## The Interactive Interpreter
 
-Open R and type `2 + 2`.  R tells you that the answer is `4`. Congrats!  You are now using R. This is the most basic way to interact with the interpreter.  Later we will see how you can save complicated series of commands to a script file and excecute them automatically. 
+Open R and type `2 + 2`.  R tells you that the answer is `4`. Congrats!  You are now using R. This is the most basic way to interact with the interpreter.  Later we will see how you can save a complicated series of commands to a script file and excecute them automatically. 
 
 ## Assignment
 
-Sometimes it is useful to save the results of computations in a named variable that we will use later.  We can create a named variable using the `<-` operator.  For instance, we can do the following.
+Sometimes it is useful to assign the results of computations to a named variable that we will use later.  We can create a named variable using the `<-` assignment operator.  For instance, we can do the following.
 
 ```{r}
 myVariable <- 2 + 2
 ```
 
-Now the result from this computation is saved for later use.  Later, we can use this  variable like so: 
+Now the result from this computation is assigned to `myVariable` and saved for later use.  Later, we can call this  variable like so: 
 
 ```{r}
 myVariable * myVariable
 ```
+
+## Vectors
+
+A vector is a series of values stored in a single object.  You can create a vector using the `c()` function (**c** stands for **combine**). 
+
+```{r}
+vector1 <- c(1,2,3,4,5)
+vector2 <- c(6,7,8,9,10)
+```
+
+Vectors are very powerful, because many of the basic functions and operations in R are **vectorized**, meaning that they operate on all elements of a vector in sequence.  For example, to add the elements of `vector1` with the corresponding elements in `vector2`, you simply add the vectors, because the `+` function is vectorized.
+
+```{r}
+vector1 + vector2
+```
+
+
+## Functions
+
+Functions are the heart of the R language. A function is just a series of commands that is assigned a name.  Functions accept **arguments**, perform a series of commands using the argument values, then **return** a single object. Many functions have default values for arguments. You can see all the arguments and default values by using the `?` operator like this `?mean`.
+
+Notice that the value for `na.rm = FALSE`.  This means that by default, `NA` values are not removed, and if you have some `NA` val

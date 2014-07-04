@@ -106,15 +106,29 @@ code > span.er { font-weight: bold; }
 
 <div id="the-interactive-interpreter" class="section level2">
 <h2>The Interactive Interpreter</h2>
-<p>Open R and type <code>2 + 2</code>. R tells you that the answer is <code>4</code>. Congrats! You are now using R. This is the most basic way to interact with the interpreter. Later we will see how you can save complicated series of commands to a script file and excecute them automatically.</p>
+<p>Open R and type <code>2 + 2</code>. R tells you that the answer is <code>4</code>. Congrats! You are now using R. This is the most basic way to interact with the interpreter. Later we will see how you can save a complicated series of commands to a script file and excecute them automatically.</p>
 </div>
 <div id="assignment" class="section level2">
 <h2>Assignment</h2>
-<p>Sometimes it is useful to save the results of computations in a named variable that we will use later. We can create a named variable using the <code>&lt;-</code> operator. For instance, we can do the following.</p>
+<p>Sometimes it is useful to assign the results of computations to a named variable that we will use later. We can create a named variable using the <code>&lt;-</code> assignment operator. For instance, we can do the following.</p>
 <pre class="sourceCode r"><code class="sourceCode r">myVariable &lt;-<span class="st"> </span><span class="dv">2</span> +<span class="st"> </span><span class="dv">2</span></code></pre>
-<p>Now the result from this computation is saved for later use. Later, we can use this variable like so:</p>
+<p>Now the result from this computation is assigned to <code>myVariable</code> and saved for later use. Later, we can call this variable like so:</p>
 <pre class="sourceCode r"><code class="sourceCode r">myVariable *<span class="st"> </span>myVariable</code></pre>
 <pre><code>## [1] 16</code></pre>
+</div>
+<div id="vectors" class="section level2">
+<h2>Vectors</h2>
+<p>A vector is a series of values stored in a single object. You can create a vector using the <code>c()</code> function (<strong>c</strong> stands for <strong>combine</strong>).</p>
+<pre class="sourceCode r"><code class="sourceCode r">vector1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)
+vector2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</code></pre>
+<p>Vectors are very powerful, because many of the basic functions and operations in R are <strong>vectorized</strong>, meaning that they operate on all elements of a vector in sequence. For example, to add the elements of <code>vector1</code> with the corresponding elements in <code>vector2</code>, you simply add the vectors, because the <code>+</code> function is vectorized.</p>
+<pre class="sourceCode r"><code class="sourceCode r">vector1 +<span class="st"> </span>vector2</code></pre>
+<pre><code>## [1]  7  9 11 13 15</code></pre>
+</div>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<p>Functions are the heart of the R language. A function is just a series of commands that is assigned a name. Functions accept <strong>arguments</strong>, perform a series of commands using the argument values, then <strong>return</strong> a single object. Many functions have default values for arguments. You can see all the arguments and default values by using the <code>?</code> operator like this <code>?mean</code>.</p>
+<p>Notice that the value for <code>na.rm = FALSE</code>. This means that by default, <code>NA</code> values are not removed, and if you have some <code>NA</code> val</p>
 </div>
 
 
