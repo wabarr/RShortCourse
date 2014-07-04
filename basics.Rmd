@@ -1,0 +1,21 @@
+---
+title: "Basics"
+---
+
+## The Interactive Interpreter
+
+Open R and type `2 + 2`.  R tells you that the answer is `4`. Congrats!  You are now using R. This is the most basic way to interact with the interpreter.  Later we will see how you can save complicated series of commands to a script file and excecute them automatically. 
+
+## Assignment
+
+Sometimes it is useful to save the results of computations in a named variable that we will use later.  We can create a named variable using the `<-` operator.  For instance, we can do the following.
+
+```{r}
+myVariable <- 2 + 2
+```
+
+Now the result from this computation is saved for later use.  Later, we can use this  variable like so: 
+
+```{r}
+myVariable * myVariable
+```
