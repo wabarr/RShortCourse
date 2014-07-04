@@ -145,14 +145,18 @@ code > span.er { font-weight: bold; }
 <li>Style the plot and tweak axes etc. Note you can change pretty much EVERYTHING in ggplot.
 <ul>
 <li>Themes are a useful shortcut</li>
-<li>Themes let you customize the overall appearance of graphs, two of the most useful are below. Note that the number argument indicates the base font size.</li>
+<li>Themes let you customize the overall appearance of graphs, two of the most useful are below. Note that the number argument indicates the base font size.
+<ul>
 <li><code>theme_classic(20)</code></li>
 <li><code>theme_bw(20)</code></li>
-<li>helper functions for tweaks</li>
+</ul></li>
+<li>helper functions for tweaks
+<ul>
 <li><code>labs(x=&quot;The X axis label&quot;, title=&quot;my nice little graph&quot;)</code></li>
 <li><code>guides()</code> to tweak legend</li>
 <li><code>scale_x_continuous(limits=c(0,10))</code> to customize x scale</li>
 <li><code>scale_fill_xxx()</code> and <code>scale_color_xxx()</code> for customizing color choices</li>
+</ul></li>
 </ul></li>
 <li>Export the plot in a useful format using <code>ggsave()</code></li>
 <li>Submit for publication.</li>

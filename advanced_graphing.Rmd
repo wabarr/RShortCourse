@@ -39,13 +39,13 @@ To briefly summarize: in `ggplot2` a plot is thought of as having several parts 
 *   Style the plot and tweak axes etc. Note you can change pretty much EVERYTHING in ggplot.  
     * Themes are a useful shortcut
     * Themes let you customize the overall appearance of graphs, two of the most useful are below.  Note that the number argument indicates the base font size. 
-      * `theme_classic(20)`
-      * `theme_bw(20)`
+        * `theme_classic(20)`
+        * `theme_bw(20)`
     * helper functions for tweaks
-      * `labs(x="The X axis label", title="my nice little graph")`
-      * `guides()` to tweak legend
-      * `scale_x_continuous(limits=c(0,10))` to customize x scale
-      * `scale_fill_xxx()` and `scale_color_xxx()` for customizing color choices
+        * `labs(x="The X axis label", title="my nice little graph")`
+        * `guides()` to tweak legend
+        * `scale_x_continuous(limits=c(0,10))` to customize x scale
+        * `scale_fill_xxx()` and `scale_color_xxx()` for customizing color choices
       
 *   Export the plot in a useful format using `ggsave()`
 *   Submit for publication.
