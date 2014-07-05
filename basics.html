@@ -118,12 +118,26 @@ code > span.er { font-weight: bold; }
 </div>
 <div id="vectors" class="section level2">
 <h2>Vectors</h2>
-<p>A vector is a series of values stored in a single object. You can create a vector using the <code>c()</code> function (<strong>c</strong> stands for <strong>combine</strong>).</p>
+<p>A vector is a series of values stored in a single object. You can create a vector using the <code>c()</code> function (<strong>c</strong> stands for <strong>combine</strong>). <strong>Note</strong>: you can only store a single type of data in a vector (e.g. numeric or character data).</p>
 <pre class="sourceCode r"><code class="sourceCode r">vector1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)
 vector2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</code></pre>
 <p>Vectors are very powerful, because many of the basic functions and operations in R are <strong>vectorized</strong>, meaning that they operate on all elements of a vector in sequence. For example, to add the elements of <code>vector1</code> with the corresponding elements in <code>vector2</code>, you simply add the vectors, because the <code>+</code> function is vectorized.</p>
 <pre class="sourceCode r"><code class="sourceCode r">vector1 +<span class="st"> </span>vector2</code></pre>
 <pre><code>## [1]  7  9 11 13 15</code></pre>
+<div id="accessing-values-within-a-vector" class="section level3">
+<h3>Accessing values within a vector</h3>
+<p>Vectors can be <strong>indexed</strong> with brackets <code>[]</code> to get a subset of values. What value do you get by typing <code>vector2[3]</code> in the interpreter?</p>
+</div>
+<div id="challenge" class="section level3">
+<h3><span class="mega-octicon octicon-puzzle"></span> Challenge <span class="mega-octicon octicon-puzzle"></h3>
+<p>Explain to the person sitting next to you how this works.</p>
+<pre class="sourceCode r"><code class="sourceCode r">vector2[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</code></pre>
+<pre><code>## [1]  6  9 10</code></pre>
+</div>
+</div>
+<div id="data-frames" class="section level2">
+<h2>Data Frames</h2>
+<p>Data frames are</p>
 </div>
 <div id="functions" class="section level2">
 <h2>Functions</h2>

@@ -22,7 +22,7 @@ myVariable * myVariable
 
 ## Vectors
 
-A vector is a series of values stored in a single object.  You can create a vector using the `c()` function (**c** stands for **combine**). 
+A vector is a series of values stored in a single object.  You can create a vector using the `c()` function (**c** stands for **combine**). **Note**: you can only store a single type of data in a vector (e.g. numeric or character data).
 
 ```{r}
 vector1 <- c(1,2,3,4,5)
@@ -35,6 +35,21 @@ Vectors are very powerful, because many of the basic functions and operations in
 vector1 + vector2
 ```
 
+### Accessing values within a vector
+
+Vectors can be **indexed** with brackets `[]` to get a subset of values.  What value do you get by typing `vector2[3]` in the interpreter? 
+
+### <span class="mega-octicon octicon-puzzle"></span> Challenge <span class="mega-octicon octicon-puzzle">
+
+Explain to the person sitting next to you how this works.
+
+```{r}
+vector2[c(1,4,5)]
+```
+
+## Data Frames
+
+Data frames are 
 
 ## Functions
 
