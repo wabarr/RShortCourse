@@ -119,11 +119,11 @@ code > span.er { font-weight: bold; }
 <div id="vectors" class="section level2">
 <h2>Vectors</h2>
 <p>A vector is a series of values stored in a single object. You can create a vector using the <code>c()</code> function (<strong>c</strong> stands for <strong>combine</strong>). <strong>Note</strong>: you can only store a single type of data in a vector (e.g. numeric or character data).</p>
-<pre class="sourceCode r"><code class="sourceCode r">vector1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)
-vector2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</code></pre>
-<p>Vectors are very powerful, because many of the basic functions and operations in R are <strong>vectorized</strong>, meaning that they operate on all elements of a vector in sequence. For example, to add the elements of <code>vector1</code> with the corresponding elements in <code>vector2</code>, you simply add the vectors, because the <code>+</code> function is vectorized.</p>
+<pre class="sourceCode r"><code class="sourceCode r">vector1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)
+vector2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">19</span>,<span class="dv">20</span>)</code></pre>
+<p>Vectors are very powerful, because many of the basic functions and operations in R are <strong>vectorized</strong>, meaning that they operate on all elements of a vector in sequence. For example, to add the elements of <code>vector1</code> with the corresponding elements in <code>vector2</code>, you simply add the vectors, because the <code>+</code> function is vectorized. You can assume that <strong>most</strong> of the base functions in R are vectorized. This is one of the fundamental advantages of R.</p>
 <pre class="sourceCode r"><code class="sourceCode r">vector1 +<span class="st"> </span>vector2</code></pre>
-<pre><code>## [1]  7  9 11 13 15</code></pre>
+<pre><code>##  [1] 12 14 16 18 20 22 24 26 28 30</code></pre>
 <div id="accessing-values-within-a-vector" class="section level3">
 <h3>Accessing values within a vector</h3>
 <p>Vectors can be <strong>indexed</strong> with brackets <code>[]</code> to get a subset of values. What value do you get by typing <code>vector2[3]</code> in the interpreter?</p>
@@ -132,17 +132,52 @@ vector2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv"
 <h3><span class="mega-octicon octicon-puzzle"></span> Challenge <span class="mega-octicon octicon-puzzle"></h3>
 <p>Explain to the person sitting next to you how this works. HINT: R evaluates expressions ‘from the inside out’, with regards to brackets and parentheses.</p>
 <pre class="sourceCode r"><code class="sourceCode r">vector2[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</code></pre>
-<pre><code>## [1]  6  9 10</code></pre>
+<pre><code>## [1] 11 14 15</code></pre>
 </div>
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data Frames</h2>
-<p>Data frames are</p>
+<p>Data frames are a convenient way of storing multiple related vectors of data together in a single object. They are analogous to a spreadsheet where each row corresponds to an individual (e.g., specimen, species) and each row corresponds to some observation about that individual.</p>
+<div id="accessing-data-in-a-dataframe" class="section level3">
+<h3>Accessing data in a dataframe</h3>
+<p>Using the built in dataframe <code>iris</code>, you can explore how to access data within a dataframe. The most common ways are with the <code>$</code> syntax and with the <code>[row,column]</code> syntax. <code>$</code> is used to access a named column within an dataframe. The <code>[row, column]</code> syntax is used to identify the index number of the row and column desired. Note that leaving a blank indicates ALL rows or columns. So <code>iris$Species</code> is the same as <code>iris[,5]</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#first few rows of iris</span>
+<span class="kw">head</span>(iris)</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#get the Sepal.Length column</span>
+iris$Sepal.Length</code></pre>
+<pre><code>##   [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4
+##  [18] 5.1 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5
+##  [35] 4.9 5.0 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0
+##  [52] 6.4 6.9 5.5 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8
+##  [69] 6.2 5.6 5.9 6.1 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4
+##  [86] 6.0 6.7 6.3 5.6 5.5 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8
+## [103] 7.1 6.3 6.5 7.6 4.9 7.3 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7
+## [120] 6.0 6.9 5.6 7.7 6.3 6.7 7.2 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7
+## [137] 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8 6.7 6.7 6.3 6.5 6.2 5.9</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#get the value in the first row, third column</span>
+iris[<span class="dv">1</span>,<span class="dv">3</span>]</code></pre>
+<pre><code>## [1] 1.4</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#get the whole first row</span>
+iris[<span class="dv">1</span>, ]</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa</code></pre>
+</div>
 </div>
 <div id="functions" class="section level2">
 <h2>Functions</h2>
 <p>Functions are the heart of the R language. A function is just a series of commands that is assigned a name. Functions accept <strong>arguments</strong>, perform a series of commands using the argument values, then <strong>return</strong> a single object. Many functions have default values for arguments. You can see all the arguments and default values by using the <code>?</code> operator like this <code>?mean</code>.</p>
 <p>Notice that the value for <code>na.rm = FALSE</code>. This means that by default, <code>NA</code> values are not removed, and if you have some <code>NA</code> val</p>
+<div id="challenge-1" class="section level3">
+<h3><span class="mega-octicon octicon-puzzle"></span> Challenge <span class="mega-octicon octicon-puzzle"></h3>
+<p>Write a function that</p>
+</div>
 </div>
 
 

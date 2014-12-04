@@ -48,3 +48,7 @@ h2 {
 html {
   margin-bottom: 35px;
 }
+
+.mega-octicon octicon-puzzle {
+  margin-top:10px;
+}
