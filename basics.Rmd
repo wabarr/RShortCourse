@@ -74,7 +74,3 @@ iris[1, ]
 Functions are the heart of the R language. A function is just a series of commands that is assigned a name.  Functions accept **arguments**, perform a series of commands using the argument values, then **return** a single object. Many functions have default values for arguments. You can see all the arguments and default values by using the `?` operator like this `?mean`.
 
 Notice that the value for `na.rm = FALSE`.  This means that by default, `NA` values are not removed, and if you have some `NA` val
-
-### <span class="mega-octicon octicon-puzzle"></span> Challenge <span class="mega-octicon octicon-puzzle">
-
-Write a function that 
